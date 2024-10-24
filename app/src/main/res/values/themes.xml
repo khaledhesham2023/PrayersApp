@@ -1,0 +1,11 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.PrayerApplication" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/soft_blue</item>
+        <item name="colorPrimaryDark">@color/dark_soft_blue</item>
+        <item name="colorAccent">@color/soft_blue</item>
+    </style>
+
+    <style name="Theme.PrayerApplication" parent="Base.Theme.PrayerApplication" />
+</resources>

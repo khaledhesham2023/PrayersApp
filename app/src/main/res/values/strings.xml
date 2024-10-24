@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">PrayerApp</string>
+    <string name="next_prayer">Next Prayer</string>
+    <string name="show_qibla_direction_on_map">Show Qibla Direction On Map</string>
+</resources>
