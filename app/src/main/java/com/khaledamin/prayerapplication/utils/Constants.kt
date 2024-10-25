@@ -13,7 +13,12 @@ class Constants {
         const val ASR  = "Asr"
         const val MAGHRIB  = "Maghrib"
         const val ISHA  = "Isha"
-        const val UIDayFormat = "MMM dd yyyy"
+        const val UI_DAY_FORMAT = "MMM dd yyyy"
         const val DATAFORMAT = "dd MMM yyyy"
+        const val WEEK = 7
+        const val HR12_FORMAT = "hh:mm a"
+        const val HR24_FORMAT = "hh:mm"
+        const val ACCURATE_FORMAT = "dd-MM-yyyy HH:mm a"
+        const val GREGORIAN_DAY_FORMAT = "dd-MM-yyyy"
     }
 }

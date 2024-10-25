@@ -4,7 +4,6 @@ import android.content.pm.PackageManager
 import android.icu.util.Calendar
 import android.location.Geocoder
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -18,11 +17,9 @@ import com.khaledamin.prayerapplication.domain.model.Day
 import com.khaledamin.prayerapplication.presentation.abstracts.BaseFragment
 import com.khaledamin.prayerapplication.utils.Constants
 import com.khaledamin.prayerapplication.utils.State
-import com.khaledamin.prayerapplication.utils.getBeginning
+import com.khaledamin.prayerapplication.utils.getBeginningOfTheDay
 import com.khaledamin.prayerapplication.utils.getNextPrayer
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.SimpleDateFormat
-import java.util.Date
 import java.util.Locale
 
 @AndroidEntryPoint
@@ -66,6 +63,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
                     viewBinding.progress.visibility = View.GONE
                     configureViews()
                 }
+
                 is State.Error -> {
                     Toast.makeText(requireContext(), state.message, Toast.LENGTH_SHORT).show()
                     viewBinding.progress.visibility = View.GONE
@@ -127,7 +125,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
                     latitude = location.latitude
                     longitude = location.longitude
                     viewModel.getWeekPrayers(
-                        initialTime = getBeginning(),
+                        initialTime = getBeginningOfTheDay(),
                         year = Calendar.getInstance().get(Calendar.YEAR),
                         month = Calendar.getInstance().get(Calendar.MONTH) + 1,
                         latitude = latitude,
@@ -161,7 +159,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             } else {
                 Toast.makeText(
                     requireContext(),
-                    "Unable to get current location",
+                    getString(R.string.permission_required),
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -184,6 +182,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         }"
         return city
     }
+
     private fun configureViews() {
         when (index) {
             0 -> {
@@ -197,7 +196,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
                 }
             }
 
-            weekDays.size -1 -> {
+            weekDays.size - 1 -> {
                 viewBinding.forward.apply {
                     visibility = View.INVISIBLE
                     isEnabled = false

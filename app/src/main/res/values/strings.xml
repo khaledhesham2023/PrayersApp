@@ -4,4 +4,5 @@
     <string name="show_qibla_direction_on_map">Show Qibla Direction On Map</string>
     <string name="no_upcoming_prayers">No Upcoming prayers</string>
     <string name="current_location">Current Location</string>
+    <string name="permission_required">You need to allow accessto your location</string>
 </resources>

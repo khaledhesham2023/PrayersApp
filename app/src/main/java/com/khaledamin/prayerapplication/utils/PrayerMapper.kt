@@ -13,7 +13,7 @@ fun DayDTO.toDay(latitude:Double,longitude:Double): Day {
             Timing(
                 name = Constants.FAJR,
                 time = convertDatetimeToMilliSeconds(
-                    gregorian = this.date.gregorian,
+                    date = this.date.gregorian.date,
                     prayerTime = timings.fajr
                 ),
                 timeInHourMinute = convertTo12HrFormat(timings.fajr)
@@ -21,7 +21,7 @@ fun DayDTO.toDay(latitude:Double,longitude:Double): Day {
             Timing(
                 name = Constants.SUNRISE,
                 time = convertDatetimeToMilliSeconds(
-                    gregorian = this.date.gregorian,
+                    date = this.date.gregorian.date,
                     prayerTime = timings.sunrise
                 ),
                 timeInHourMinute = convertTo12HrFormat(timings.sunrise)
@@ -29,7 +29,7 @@ fun DayDTO.toDay(latitude:Double,longitude:Double): Day {
             Timing(
                 name = Constants.DHUHR,
                 time = convertDatetimeToMilliSeconds(
-                    gregorian = this.date.gregorian,
+                    date = this.date.gregorian.date,
                     prayerTime = timings.dhuhr
                 ),
                 timeInHourMinute = convertTo12HrFormat(timings.dhuhr)
@@ -37,7 +37,7 @@ fun DayDTO.toDay(latitude:Double,longitude:Double): Day {
             Timing(
                 name = Constants.ASR,
                 time = convertDatetimeToMilliSeconds(
-                    gregorian = this.date.gregorian,
+                    date = this.date.gregorian.date,
                     prayerTime = timings.asr
                 ),
                 timeInHourMinute = convertTo12HrFormat(timings.asr)
@@ -45,7 +45,7 @@ fun DayDTO.toDay(latitude:Double,longitude:Double): Day {
             Timing(
                 name = Constants.MAGHRIB,
                 time = convertDatetimeToMilliSeconds(
-                    gregorian = this.date.gregorian,
+                    date = this.date.gregorian.date,
                     prayerTime = timings.maghrib
                 ),
                 timeInHourMinute = convertTo12HrFormat(timings.maghrib)
@@ -53,7 +53,7 @@ fun DayDTO.toDay(latitude:Double,longitude:Double): Day {
             Timing(
                 name = Constants.ISHA,
                 time = convertDatetimeToMilliSeconds(
-                    gregorian = this.date.gregorian,
+                    date = this.date.gregorian.date,
                     prayerTime = timings.isha
                 ),
                 timeInHourMinute = convertTo12HrFormat(timings.isha)

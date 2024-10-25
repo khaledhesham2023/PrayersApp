@@ -1,7 +1,6 @@
 package com.khaledamin.prayerapplication.domain.repository
 
 import com.khaledamin.prayerapplication.data.local.PrayerEntity
-import com.khaledamin.prayerapplication.data.local.QiblaEntity
 import com.khaledamin.prayerapplication.data.model.response.DayDTO
 import com.khaledamin.prayerapplication.data.model.response.response.GetQiblaDirectionResponse
 

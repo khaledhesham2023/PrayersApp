@@ -11,7 +11,6 @@ import javax.inject.Inject
 class PrayersRepoImpl @Inject constructor(
     private val api: PrayerApi,
     private val prayerDao: PrayerDao,
-//    private val qiblaDao: QiblaDao
 ) : PrayersRepo {
     override suspend fun getOnlineRecords(
         year: Int,

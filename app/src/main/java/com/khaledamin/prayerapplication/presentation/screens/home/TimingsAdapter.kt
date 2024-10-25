@@ -9,7 +9,7 @@ import com.khaledamin.prayerapplication.R
 import com.khaledamin.prayerapplication.databinding.ItemTimingBinding
 import com.khaledamin.prayerapplication.domain.model.Timing
 
-class TimingsAdapter(val timings: ArrayList<Timing>) :
+class TimingsAdapter(private val timings: ArrayList<Timing>) :
     RecyclerView.Adapter<TimingsAdapter.TimingsViewHolder>() {
     inner class TimingsViewHolder(val binding: ItemTimingBinding) :
         RecyclerView.ViewHolder(binding.root)

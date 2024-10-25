@@ -121,13 +121,14 @@
 
             <TextView
                 android:id="@+id/next_prayer"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:text="@string/next_prayer"
                 android:textColor="@color/dark_soft_blue"
                 android:textSize="14sp"
                 android:textStyle="bold"
+                app:layout_constraintHorizontal_weight="1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/prayer_name"
                 app:layout_constraintHorizontal_chainStyle="spread"
@@ -136,12 +137,14 @@
 
             <TextView
                 android:id="@+id/prayer_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:textColor="@color/dark_soft_blue"
-                android:textSize="30sp"
+                android:textSize="14sp"
+                android:maxLines="2"
                 android:textStyle="bold"
+                app:layout_constraintHorizontal_weight="1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/prayer_time_left"
                 app:layout_constraintHorizontal_chainStyle="spread"
@@ -150,7 +153,7 @@
 
             <TextView
                 android:id="@+id/prayer_time_left"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:text="Time Remaining \n 1 hr 16 min"
@@ -159,6 +162,7 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="1"
                 app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintStart_toEndOf="@id/prayer_name"
                 app:layout_constraintTop_toTopOf="parent" />
