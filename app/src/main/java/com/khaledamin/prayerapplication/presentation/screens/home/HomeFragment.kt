@@ -177,7 +177,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
                     latitude = location.latitude
                     longitude = location.longitude
                     viewModel.getWeekPrayers(
-                        initialTime = getBeginningOfTheDay(),
                         year = Calendar.getInstance().get(Calendar.YEAR),
                         month = Calendar.getInstance().get(Calendar.MONTH) + 1,
                         latitude = latitude,
@@ -227,12 +226,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     }
 
     private fun getCityName(): String {
-        val geocoder = Geocoder(requireContext(), Locale.getDefault())
-        val addresses = geocoder.getFromLocation(latitude, longitude, 3)
-        val city = "${addresses?.get(0)?.subAdminArea}, ${addresses?.get(0)?.countryCode}, ${
-            addresses?.get(0)?.thoroughfare
-        }"
-        return city
+        try {
+            val geocoder = Geocoder(requireContext(), Locale.getDefault())
+            val addresses = geocoder.getFromLocation(latitude, longitude, 3)
+            val city = "${addresses?.get(0)?.subAdminArea}, ${addresses?.get(0)?.countryCode}, ${
+                addresses?.get(0)?.thoroughfare
+            }"
+            return city
+        } catch (e: Exception){
+            Toast.makeText(requireContext(),e.message,Toast.LENGTH_SHORT).show()
+        }
+        return ""
     }
 
     private fun configureViews() {

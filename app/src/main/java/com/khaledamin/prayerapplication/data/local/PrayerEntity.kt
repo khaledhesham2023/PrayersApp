@@ -20,8 +20,5 @@ data class PrayerEntity(
     val maghrib:Long,
     val ishaFormatted: String,
     val isha:Long,
-    val latitude: Double,
-    val longitude: Double,
     val dateFormatted: String,
-    val date: Long
 )

@@ -7,7 +7,7 @@ import com.khaledamin.prayerapplication.domain.model.Day
 import com.khaledamin.prayerapplication.domain.model.Qibla
 import com.khaledamin.prayerapplication.domain.model.Timing
 
-fun DayDTO.toDay(latitude:Double,longitude:Double): Day {
+fun DayDTO.toDay(): Day {
     return Day(
         timings = arrayListOf(
             Timing(
@@ -60,13 +60,11 @@ fun DayDTO.toDay(latitude:Double,longitude:Double): Day {
             )
         ),
         readable = convertDateFormat(Constants.DATAFORMAT,this.date.readable),
-        latitude = latitude,
-        longitude = longitude,
         date = this.date.gregorian.date
     )
 }
 
-fun DayDTO.toPrayerEntity(latitude: Double,longitude: Double,initialTime:Long): PrayerEntity {
+fun DayDTO.toPrayerEntity(): PrayerEntity {
     return PrayerEntity(
         prayerId = null,
         readable = this.date.readable,
@@ -100,11 +98,7 @@ fun DayDTO.toPrayerEntity(latitude: Double,longitude: Double,initialTime:Long): 
             this.date.gregorian.date,
             convertTo12HrFormat(timings.isha)
         ),
-        latitude = latitude,
-        longitude = longitude,
-        dateFormatted = this.date.gregorian.date,
-        date = initialTime
-    )
+        dateFormatted = this.date.gregorian.date)
 }
 
 fun QiblaDTO.toQibla(): Qibla {
@@ -150,8 +144,6 @@ fun PrayerEntity.toDay():Day {
             )
         ),
         readable = this.readable,
-        date = this.dateFormatted,
-        latitude = this.latitude,
-        longitude = this.longitude
+        date = this.dateFormatted
     )
 }

@@ -30,12 +30,12 @@ class HomeViewModel @Inject constructor(
         get() = _updateDayLiveData
 
 
-    fun getWeekPrayers(initialTime:Long, year: Int, month: Int, latitude: Double, longitude: Double) =
+    fun getWeekPrayers(year: Int, month: Int, latitude: Double, longitude: Double) =
         viewModelScope.launch(provideCoroutineExceptionHandler(_getPrayersLiveData)) {
             _showProgress.value = true
             try {
                 val response =
-                    getPrayerTimesUseCase.getRecords(initialTime,year, month, latitude, longitude)
+                    getPrayerTimesUseCase.getRecords(year, month, latitude, longitude)
                 _getPrayersLiveData.value = State.Success(data = response)
                 _getPrayersLiveData.value
             } finally {
