@@ -1,3 +1,6 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -9,6 +12,11 @@ plugins {
 
 
 }
+val localProperties = Properties().apply {
+    load(FileInputStream(rootProject.file("local.properties")))
+}
+
+val mapsApiKey: String = localProperties.getProperty("MAPS_API_KEY")
 
 android {
     namespace = "com.khaledamin.prayerapplication"
@@ -20,7 +28,7 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
+        manifestPlaceholders["MAPS_API_KEY"] = mapsApiKey
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -42,6 +50,7 @@ android {
     }
     buildFeatures {
         dataBinding = true
+        buildConfig = true
     }
 }
 
@@ -78,6 +87,7 @@ dependencies {
     annotationProcessor(libs.androidx.room.compiler)
     kapt("androidx.room:room-compiler:2.6.1")
     testImplementation(libs.androidx.room.testing)
+    implementation(libs.androidx.room.ktx)
     // Google Maps
     implementation(libs.play.services.maps)
     implementation(libs.play.services.location)
@@ -86,15 +96,14 @@ dependencies {
     testImplementation(libs.mockito.core.v451)
     androidTestImplementation(libs.mockito.android)
 
-// Mockito with Kotlin support (optional, if you are writing Kotlin tests)
+    // Mockito with Kotlin support (optional, if you are writing Kotlin tests)
     testImplementation(libs.mockito.kotlin)
-// fragment testing
+    // fragment testing
     androidTestImplementation(libs.androidx.fragment.testing)
     androidTestImplementation(libs.androidx.navigation.testing)
-    testImplementation (libs.assertj.core)
+    testImplementation(libs.assertj.core)
 
-
-
+    androidTestImplementation(libs.truth)
 
 }
 kapt {

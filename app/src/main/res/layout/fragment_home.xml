@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <variable
+            name="day"
+            type="com.khaledamin.prayerapplication.domain.model.Day" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/home"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".presentation.prayertimelist.PrayersFragment">
@@ -31,8 +35,8 @@
                 android:backgroundTint="#00FFFFFF"
                 android:clickable="true"
                 android:focusable="true"
-                android:visibility="invisible"
                 android:src="@drawable/ic_back_arrow"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/date_address_layout"
                 app:layout_constraintHorizontal_chainStyle="spread"
@@ -59,6 +63,7 @@
                     android:layout_margin="8dp"
                     android:textColor="@color/dark_soft_blue"
                     android:textSize="16sp"
+                    android:text="@{day.readable}"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -107,12 +112,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            app:layout_constraintVertical_chainStyle="spread"
             android:elevation="5dp"
             app:layout_constraintBottom_toTopOf="@id/prayers_list"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/day_date_app_bar">
+            app:layout_constraintTop_toBottomOf="@id/day_date_app_bar"
+            app:layout_constraintVertical_chainStyle="spread">
 
             <TextView
                 android:id="@+id/next_prayer"
@@ -121,7 +126,7 @@
                 android:layout_margin="16dp"
                 android:text="@string/next_prayer"
                 android:textColor="@color/dark_soft_blue"
-                android:textSize="20sp"
+                android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/prayer_name"
@@ -134,7 +139,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:text="ISHA"
                 android:textColor="@color/dark_soft_blue"
                 android:textSize="30sp"
                 android:textStyle="bold"
@@ -165,23 +169,24 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="8dp"
-            app:layout_constraintVertical_weight="1"
-            app:layout_constraintVertical_chainStyle="spread"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@id/qibla_button_layout"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/next_prayer_layout"
-            app:layout_constraintBottom_toTopOf="@id/qibla_button_layout" />
+            app:layout_constraintVertical_chainStyle="spread"
+            app:layout_constraintVertical_weight="1" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/qibla_button_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/prayers_list"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintVertical_chainStyle="spread"
-            app:layout_constraintVertical_weight="1"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/prayers_list"
+            app:layout_constraintVertical_chainStyle="spread"
+            app:layout_constraintVertical_weight="1">
 
             <View
                 android:id="@+id/line"
@@ -202,11 +207,19 @@
                 android:backgroundTint="@color/dark_soft_blue"
                 android:text="@string/show_qibla_direction_on_map"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/line"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/line" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
