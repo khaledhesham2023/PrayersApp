@@ -1,6 +1,7 @@
 package com.khaledamin.prayerapplication.data.remote
 
-import com.khaledamin.prayerapplication.data.model.response.GetPrayersListResponse
+import com.khaledamin.prayerapplication.data.model.response.response.GetPrayersListResponse
+import com.khaledamin.prayerapplication.data.model.response.response.GetQiblaDirectionResponse
 import com.khaledamin.prayerapplication.utils.Constants
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -16,4 +17,10 @@ interface PrayerApi {
         @Query("longitude") longitude: Double,
         @Query("method") method: Int = Constants.PRAYER_METHOD
     ): GetPrayersListResponse
+
+    @GET("qibla/{latitude}/{longitude}")
+    suspend fun getQiblaDirection(
+        @Path("latitude") latitude: Double,
+        @Path("longitude") longitude: Double
+    ): GetQiblaDirectionResponse
 }

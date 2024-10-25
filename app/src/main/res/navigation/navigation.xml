@@ -18,5 +18,12 @@
         android:id="@+id/mapsFragment"
         android:name="com.khaledamin.prayerapplication.presentation.screens.map.MapsFragment"
         android:label="@string/app_name"
-        tools:layout="@layout/fragment_maps"/>
+        tools:layout="@layout/fragment_maps">
+        <argument
+            android:name="lat"
+            app:argType="float" />
+        <argument
+            android:name="long"
+            app:argType="float" />
+    </fragment>
 </navigation>

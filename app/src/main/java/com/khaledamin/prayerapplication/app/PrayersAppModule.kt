@@ -6,6 +6,7 @@ import androidx.room.Room
 import com.google.gson.Gson
 import com.khaledamin.prayerapplication.data.local.PrayerDao
 import com.khaledamin.prayerapplication.data.local.PrayerDatabase
+import com.khaledamin.prayerapplication.data.local.QiblaDao
 import com.khaledamin.prayerapplication.data.remote.PrayerApi
 import com.khaledamin.prayerapplication.data.repository.PrayersRepoImpl
 import com.khaledamin.prayerapplication.domain.repository.PrayersRepo
@@ -43,7 +44,10 @@ class PrayersAppModule : Application() {
 
     @Provides
     @Singleton
-    fun providePrayersRepo(prayerApi: PrayerApi, prayerDao: PrayerDao): PrayersRepo =
+    fun providePrayersRepo(
+        prayerApi: PrayerApi,
+        prayerDao: PrayerDao,
+    ): PrayersRepo =
         PrayersRepoImpl(prayerApi, prayerDao)
 
     @Provides
@@ -55,6 +59,10 @@ class PrayersAppModule : Application() {
     @Provides
     @Singleton
     fun providePrayerDao(prayerDatabase: PrayerDatabase): PrayerDao = prayerDatabase.prayerDao()
+
+//    @Provides
+//    @Singleton
+//    fun provideQiblaDao(prayerDatabase: PrayerDatabase): QiblaDao = prayerDatabase.qiblaDao()
 
     @Provides
     @Singleton

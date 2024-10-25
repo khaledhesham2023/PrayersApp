@@ -1,6 +1,7 @@
-package com.khaledamin.prayerapplication.data.model.response
+package com.khaledamin.prayerapplication.data.model.response.response
 
 import com.google.gson.annotations.SerializedName
+import com.khaledamin.prayerapplication.data.model.response.DayDTO
 
 data class GetPrayersListResponse(
     val code: Int,

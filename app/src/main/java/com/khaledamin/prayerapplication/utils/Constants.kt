@@ -6,7 +6,7 @@ class Constants {
         const val BASE_URL = "https://api.aladhan.com/v1/"
         const val PRAYER_METHOD = 5
         const val REQUEST_CODE  = 100
-        const val ZOOM_LEVEL  = 15.0
+        const val STREET_VIEW  = 20.0f
         const val FAJR  = "Fajr"
         const val SUNRISE  = "Sunrise"
         const val DHUHR  = "Dhuhr"

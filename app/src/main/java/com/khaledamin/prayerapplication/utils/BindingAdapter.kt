@@ -2,6 +2,8 @@ package com.khaledamin.prayerapplication.utils
 
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import com.khaledamin.prayerapplication.R
+import com.khaledamin.prayerapplication.domain.model.Timing
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -27,4 +29,3 @@ fun convertTimeToHoursMin(textView: TextView, milliSeconds: Long) {
 //    if (!foundNextPrayer){
 //        textView.text = textView.context.getString(R.string.no_upcoming_prayers)
 //    }
-//}
