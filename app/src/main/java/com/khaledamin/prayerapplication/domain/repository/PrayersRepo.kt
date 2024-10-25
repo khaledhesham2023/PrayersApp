@@ -13,11 +13,7 @@ interface PrayersRepo {
         longitude: Double
     ): List<DayDTO>
 
-    suspend fun getCachedRecords(
-        date: Long,
-        latitude: Double,
-        longitude: Double
-    ): List<PrayerEntity>
+    suspend fun getCachedRecords(): List<PrayerEntity>
 
     suspend fun insertRecordsIntoCache(
         records: ArrayList<PrayerEntity>

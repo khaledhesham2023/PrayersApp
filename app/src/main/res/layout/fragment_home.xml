@@ -156,7 +156,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:text="Time Remaining \n 1 hr 16 min"
                 android:textColor="@color/dark_soft_blue"
                 android:textSize="14sp"
                 android:textStyle="bold"

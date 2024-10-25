@@ -4,23 +4,29 @@ import android.content.pm.PackageManager
 import android.icu.util.Calendar
 import android.location.Geocoder
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.khaledamin.prayerapplication.R
 import com.khaledamin.prayerapplication.databinding.FragmentHomeBinding
 import com.khaledamin.prayerapplication.domain.model.Day
+import com.khaledamin.prayerapplication.domain.model.Timing
 import com.khaledamin.prayerapplication.presentation.abstracts.BaseFragment
 import com.khaledamin.prayerapplication.utils.Constants
 import com.khaledamin.prayerapplication.utils.State
 import com.khaledamin.prayerapplication.utils.getBeginningOfTheDay
 import com.khaledamin.prayerapplication.utils.getNextPrayer
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.util.Locale
+import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
@@ -60,6 +66,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
                     state.data[index].let { timingsAdapter.updateWith(it.timings) }
                     viewBinding.prayerName.text =
                         getNextPrayer(requireContext(), state.data[0].timings)
+                    lifecycleScope.launch {
+                        countDownTimer(viewBinding.prayerTimeLeft, state.data[0].timings)
+                    }
                     viewBinding.progress.visibility = View.GONE
                     configureViews()
                 }
@@ -82,6 +91,49 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             configureViews()
         }
 
+    }
+
+    private fun countDownTimer(textView: TextView, timings: ArrayList<Timing>) {
+        val now = System.currentTimeMillis()
+        val nextTiming = timings.firstOrNull { it.time > now }
+        if (nextTiming == null) {
+            textView.text = getString(R.string.waiting_for_next_prayer)
+            return
+        }
+
+        // Start countdown with the remaining time for the first upcoming timing
+        startCountDown(textView, nextTiming.time - now, timings, timings.indexOf(nextTiming))
+    }
+
+    private fun startCountDown(
+        textView: TextView,
+        remainingTime: Long,
+        timings: ArrayList<Timing>,
+        index: Int
+    ) {
+        object : CountDownTimer(remainingTime, 1000L) {
+            override fun onTick(millisUntilFinished: Long) {
+                val hours = TimeUnit.MILLISECONDS.toHours(millisUntilFinished)
+                val minutes = TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) % 60
+                val seconds = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) % 60
+
+                textView.text = getString(R.string.countdown_timer, hours, minutes, seconds)
+            }
+
+            override fun onFinish() {
+                // Move to the next timing if available
+                val nextIndex = index + 1
+                if (nextIndex < timings.size) {
+                    val nextTiming = timings[nextIndex]
+                    val now = System.currentTimeMillis()
+                    val newRemainingTime = nextTiming.time - now
+                    startCountDown(textView, newRemainingTime, timings, nextIndex)
+                } else {
+                    // No more timings left, show final message
+                    textView.text = getString(R.string.waiting_for_next_prayer)
+                }
+            }
+        }.start()
     }
 
     private fun setupListeners() {

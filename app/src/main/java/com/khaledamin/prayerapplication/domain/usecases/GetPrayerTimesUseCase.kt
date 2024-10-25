@@ -35,14 +35,15 @@ class GetPrayerTimesUseCase @Inject constructor(
             prayersRepo.clearRecords()
             val monthDaysDTO = prayersRepo.getOnlineRecords(year, month, latitude, longitude)
 
+            val monthDaysToLoadIntoCache = monthDaysDTO.map { dayDTO ->
+                dayDTO.toPrayerEntity(latitude, longitude, initialTime)
+            }.filter { prayerEntity ->
+                val dayToCompare = convertDateToMilliSeconds(prayerEntity.dateFormatted)
+                dayToCompare in today..lastDayInWeek
+            }.toCollection(ArrayList())
+
             // inserting the fetched data into a cache
-            prayersRepo.insertRecordsIntoCache(monthDaysDTO.map { dayDTO ->
-                dayDTO.toPrayerEntity(
-                    initialTime = initialTime,
-                    latitude = latitude,
-                    longitude = longitude
-                )
-            }.toCollection(ArrayList()))
+            prayersRepo.insertRecordsIntoCache(monthDaysToLoadIntoCache)
 
             // Mapping the DTO days into domain layer object to separate domain from data layer
             val monthDays = monthDaysDTO.map {
@@ -64,27 +65,25 @@ class GetPrayerTimesUseCase @Inject constructor(
                 // calling the api again to get days of next month
                 val newMonthDays =
                     prayersRepo.getOnlineRecords(year, month + 1, latitude, longitude)
+
+                // adding new days to current ones
+                val newMonthDaysDTO = newMonthDays.map { it.toDay(latitude, longitude) }
+
                 // inserting the new days into local database
-                prayersRepo.insertRecordsIntoCache(newMonthDays.map { dayDTO ->
+                prayersRepo.insertRecordsIntoCache(newMonthDays.take(newDaysToAdd).map { dayDTO ->
                     dayDTO.toPrayerEntity(
                         latitude,
                         longitude,
                         initialTime
                     )
                 }.toCollection(ArrayList()))
-
-                // adding new days to current ones
-                val newMonthDaysDTO = newMonthDays.map { it.toDay(latitude, longitude) }
                 daysForWeekFromNow.addAll(newMonthDaysDTO.take(newDaysToAdd))
                 return daysForWeekFromNow
             }
             return daysForWeekFromNow
         } else {
             // if no network connection occurs
-            val localRecords = prayersRepo.getCachedRecords(today, latitude, longitude)
-                .toCollection(ArrayList()).filter { day ->
-                    day.date in today..lastDayInWeek
-                }
+            val localRecords = prayersRepo.getCachedRecords()
             return if (localRecords.isEmpty()){
                 ArrayList()
             }else{

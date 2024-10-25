@@ -5,4 +5,6 @@
     <string name="no_upcoming_prayers">No Upcoming prayers</string>
     <string name="current_location">Current Location</string>
     <string name="permission_required">You need to allow accessto your location</string>
+    <string name="countdown_timer">Time Remaining is %1$d hr %2$d min %3$d sec</string>
+    <string name="waiting_for_next_prayer">Waiting for next prayer</string>
 </resources>

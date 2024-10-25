@@ -26,12 +26,8 @@ class PrayersRepoImpl @Inject constructor(
         ).daysDTO
     }
 
-    override suspend fun getCachedRecords(
-        date: Long,
-        latitude: Double,
-        longitude: Double
-    ): List<PrayerEntity> {
-        return prayerDao.getPrayers(date = date, latitude = latitude, longitude = longitude)
+    override suspend fun getCachedRecords(): List<PrayerEntity> {
+        return prayerDao.getPrayers()
     }
 
     override suspend fun insertRecordsIntoCache(records: ArrayList<PrayerEntity>) {
