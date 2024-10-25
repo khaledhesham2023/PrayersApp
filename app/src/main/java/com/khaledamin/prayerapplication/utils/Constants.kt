@@ -20,5 +20,6 @@ class Constants {
         const val HR24_FORMAT = "hh:mm"
         const val ACCURATE_FORMAT = "dd-MM-yyyy HH:mm a"
         const val GREGORIAN_DAY_FORMAT = "dd-MM-yyyy"
+        const val QIBLA = "qibla"
     }
 }

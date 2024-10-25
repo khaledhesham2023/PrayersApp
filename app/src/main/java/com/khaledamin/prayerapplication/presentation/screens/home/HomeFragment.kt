@@ -21,7 +21,6 @@ import com.khaledamin.prayerapplication.domain.model.Timing
 import com.khaledamin.prayerapplication.presentation.abstracts.BaseFragment
 import com.khaledamin.prayerapplication.utils.Constants
 import com.khaledamin.prayerapplication.utils.State
-import com.khaledamin.prayerapplication.utils.getBeginningOfTheDay
 import com.khaledamin.prayerapplication.utils.getNextPrayer
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -40,6 +39,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     private var latitude: Double = 0.0
     private var longitude: Double = 0.0
     private var index = 0
+    private lateinit var locationTitle:String
     private lateinit var weekDays: ArrayList<Day>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -141,7 +141,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             findNavController().navigate(
                 HomeFragmentDirections.actionHomeFragmentToMapsFragment(
                     latitude.toFloat(),
-                    longitude.toFloat()
+                    longitude.toFloat(),
+                    locationTitle
                 )
             )
         }
@@ -182,7 +183,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
                         latitude = latitude,
                         longitude = longitude
                     )
-                    viewBinding.address.text = getCityName()
+                    locationTitle = getCityName()
+                    viewBinding.address.text = locationTitle
                 }
             }
         }

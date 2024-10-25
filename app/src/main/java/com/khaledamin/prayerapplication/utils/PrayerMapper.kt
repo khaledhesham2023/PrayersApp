@@ -1,13 +1,13 @@
 package com.khaledamin.prayerapplication.utils
 
-import com.khaledamin.prayerapplication.data.local.PrayerEntity
+import com.khaledamin.prayerapplication.data.local.room.PrayerEntity
 import com.khaledamin.prayerapplication.data.model.response.DayDTO
 import com.khaledamin.prayerapplication.data.model.response.response.QiblaDTO
 import com.khaledamin.prayerapplication.domain.model.Day
 import com.khaledamin.prayerapplication.domain.model.Qibla
 import com.khaledamin.prayerapplication.domain.model.Timing
 
-fun DayDTO.toDay(): Day {
+fun DayDTO.toDay(latitude: Double, longitude: Double): Day {
     return Day(
         timings = arrayListOf(
             Timing(
@@ -59,12 +59,14 @@ fun DayDTO.toDay(): Day {
                 timeInHourMinute = convertTo12HrFormat(timings.isha)
             )
         ),
-        readable = convertDateFormat(Constants.DATAFORMAT,this.date.readable),
-        date = this.date.gregorian.date
+        readable = convertDateFormat(Constants.DATAFORMAT, this.date.readable),
+        date = this.date.gregorian.date,
+        latitude = latitude,
+        longitude = longitude
     )
 }
 
-fun DayDTO.toPrayerEntity(): PrayerEntity {
+fun DayDTO.toPrayerEntity(latitude: Double, longitude: Double): PrayerEntity {
     return PrayerEntity(
         prayerId = null,
         readable = this.date.readable,
@@ -98,7 +100,11 @@ fun DayDTO.toPrayerEntity(): PrayerEntity {
             this.date.gregorian.date,
             convertTo12HrFormat(timings.isha)
         ),
-        dateFormatted = this.date.gregorian.date)
+        dateFormatted = this.date.gregorian.date,
+        latitude = latitude,
+        longitude = longitude
+    )
+
 }
 
 fun QiblaDTO.toQibla(): Qibla {
@@ -109,7 +115,7 @@ fun QiblaDTO.toQibla(): Qibla {
     )
 }
 
-fun PrayerEntity.toDay():Day {
+fun PrayerEntity.toDay(): Day {
     return Day(
         arrayListOf(
             Timing(
@@ -144,6 +150,7 @@ fun PrayerEntity.toDay():Day {
             )
         ),
         readable = this.readable,
-        date = this.dateFormatted
+        date = this.dateFormatted,
+        latitude = latitude, longitude = longitude
     )
 }

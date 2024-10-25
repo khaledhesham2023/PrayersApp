@@ -35,7 +35,7 @@ class GetPrayerTimesUseCase @Inject constructor(
             val monthDaysDTO = prayersRepo.getOnlineRecords(year, month, latitude, longitude)
 
             val monthDaysToLoadIntoCache = monthDaysDTO.map { dayDTO ->
-                dayDTO.toPrayerEntity()
+                dayDTO.toPrayerEntity(latitude,longitude)
             }.filter { prayerEntity ->
                 val dayToCompare = convertDateToMilliSeconds(prayerEntity.dateFormatted)
                 dayToCompare in today..lastDayInWeek
@@ -46,7 +46,7 @@ class GetPrayerTimesUseCase @Inject constructor(
 
             // Mapping the DTO days into domain layer object to separate domain from data layer
             val monthDays = monthDaysDTO.map {
-                it.toDay()
+                it.toDay(latitude, longitude)
             }.toCollection(ArrayList())
 
             // filtering the days to get 7 days from today
@@ -66,11 +66,11 @@ class GetPrayerTimesUseCase @Inject constructor(
                     prayersRepo.getOnlineRecords(year, month + 1, latitude, longitude)
 
                 // adding new days to current ones
-                val newMonthDaysDTO = newMonthDays.map { it.toDay() }
+                val newMonthDaysDTO = newMonthDays.map { it.toDay(latitude, longitude) }
 
                 // inserting the new days into local database
                 prayersRepo.insertRecordsIntoCache(newMonthDays.take(newDaysToAdd).map { dayDTO ->
-                    dayDTO.toPrayerEntity()
+                    dayDTO.toPrayerEntity(latitude, longitude)
                 }.toCollection(ArrayList()))
                 daysForWeekFromNow.addAll(newMonthDaysDTO.take(newDaysToAdd))
                 return daysForWeekFromNow

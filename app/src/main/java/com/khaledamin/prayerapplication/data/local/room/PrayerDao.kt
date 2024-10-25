@@ -1,4 +1,4 @@
-package com.khaledamin.prayerapplication.data.local
+package com.khaledamin.prayerapplication.data.local.room
 
 import androidx.room.Dao
 import androidx.room.Insert

@@ -1,6 +1,6 @@
 package com.khaledamin.prayerapplication.domain.repository
 
-import com.khaledamin.prayerapplication.data.local.PrayerEntity
+import com.khaledamin.prayerapplication.data.local.room.PrayerEntity
 import com.khaledamin.prayerapplication.data.model.response.DayDTO
 import com.khaledamin.prayerapplication.data.model.response.response.GetQiblaDirectionResponse
 
@@ -19,7 +19,7 @@ interface PrayersRepo {
         records: ArrayList<PrayerEntity>
     )
 
-    suspend fun getQibla(latitude: Double,longitude: Double): GetQiblaDirectionResponse
+    suspend fun getQibla(latitude: Double, longitude: Double): GetQiblaDirectionResponse
 
     suspend fun clearRecords()
 }

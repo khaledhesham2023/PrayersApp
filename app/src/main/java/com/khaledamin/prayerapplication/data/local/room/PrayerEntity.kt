@@ -1,4 +1,4 @@
-package com.khaledamin.prayerapplication.data.local
+package com.khaledamin.prayerapplication.data.local.room
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -21,4 +21,6 @@ data class PrayerEntity(
     val ishaFormatted: String,
     val isha:Long,
     val dateFormatted: String,
+    val latitude: Double,
+    val longitude: Double
 )

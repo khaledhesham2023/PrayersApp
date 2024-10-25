@@ -1,7 +1,7 @@
 package com.khaledamin.prayerapplication.data.repository
 
-import com.khaledamin.prayerapplication.data.local.PrayerDao
-import com.khaledamin.prayerapplication.data.local.PrayerEntity
+import com.khaledamin.prayerapplication.data.local.room.PrayerDao
+import com.khaledamin.prayerapplication.data.local.room.PrayerEntity
 import com.khaledamin.prayerapplication.data.model.response.DayDTO
 import com.khaledamin.prayerapplication.data.model.response.response.GetQiblaDirectionResponse
 import com.khaledamin.prayerapplication.data.remote.PrayerApi
@@ -38,8 +38,8 @@ class PrayersRepoImpl @Inject constructor(
         return api.getQiblaDirection(latitude, longitude)
     }
 
+
     override suspend fun clearRecords() {
         prayerDao.clearRecords()
     }
-
 }

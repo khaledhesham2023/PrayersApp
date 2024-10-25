@@ -25,5 +25,8 @@
         <argument
             android:name="long"
             app:argType="float" />
+        <argument
+            android:name="location"
+            app:argType="string" />
     </fragment>
 </navigation>
